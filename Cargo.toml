@@ -1,0 +1,92 @@
+[workspace]
+members = [
+    "primitives",
+    "tpm",
+    "integrity",
+    "hip",
+    "pallet",
+    "rpc",
+    "runtime",
+    "client",
+    "tpm2-hip-probe",
+]
+resolver = "2"
+
+[workspace.package]
+authors = ["prodigalwon"]
+edition = "2021"
+repository = "https://github.com/prodigalwon/zk-pki"
+homepage = "https://github.com/prodigalwon/zk-pki"
+
+[workspace.lints.rust]
+suspicious_double_ref_op = { level = "allow", priority = 2 }
+
+[workspace.lints.clippy]
+all = { level = "allow", priority = 0 }
+
+[workspace.dependencies]
+# External
+codec = { version = "3.0", package = "parity-scale-codec", default-features = false, features = ["derive", "max-encoded-len"] }
+scale-info = { version = "2.1", default-features = false, features = ["derive"] }
+serde = { version = "1", default-features = false, features = ["derive"] }
+serde_json = { version = "1", default-features = false, features = ["alloc"] }
+jsonrpsee = { version = "0.24", features = ["server", "macros"] }
+
+# X.509 / ASN.1 parsing for Android Keystore attestation
+der        = { version = "0.7", default-features = false, features = ["alloc"] }
+x509-cert  = { version = "0.2", default-features = false }
+const-oid  = { version = "0.9", default-features = false }
+spki       = { version = "0.7", default-features = false, features = ["alloc"] }
+
+# Signature verification for the attestation cert chain
+p256       = { version = "0.13", default-features = false, features = ["ecdsa"] }
+p384       = { version = "0.13", default-features = false, features = ["ecdsa"] }
+rsa        = { version = "0.9", default-features = false, features = ["sha2"] }
+sha2       = { version = "0.10", default-features = false, features = ["oid"] }
+
+# Polkadot SDK — same git ref as pns-node; Cargo reuses the local cache, no re-download
+polkadot-sdk = { git = "https://github.com/paritytech/polkadot-sdk.git", branch = "stable2603", default-features = false }
+
+# Polkadot SDK — primitives
+sp-api           = { git = "https://github.com/paritytech/polkadot-sdk.git", branch = "stable2603", default-features = false }
+sp-core          = { git = "https://github.com/paritytech/polkadot-sdk.git", branch = "stable2603", default-features = false }
+sp-io            = { git = "https://github.com/paritytech/polkadot-sdk.git", branch = "stable2603", default-features = false }
+sp-runtime       = { git = "https://github.com/paritytech/polkadot-sdk.git", branch = "stable2603", default-features = false }
+sp-std           = { git = "https://github.com/paritytech/polkadot-sdk.git", branch = "stable2603", default-features = false }
+sp-blockchain    = { git = "https://github.com/paritytech/polkadot-sdk.git", branch = "stable2603", default-features = false }
+sp-block-builder = { git = "https://github.com/paritytech/polkadot-sdk.git", branch = "stable2603", default-features = false }
+sp-genesis-builder = { git = "https://github.com/paritytech/polkadot-sdk.git", branch = "stable2603", default-features = false }
+sp-inherents     = { git = "https://github.com/paritytech/polkadot-sdk.git", branch = "stable2603", default-features = false }
+sp-keyring       = { git = "https://github.com/paritytech/polkadot-sdk.git", branch = "stable2603", default-features = false }
+sp-offchain      = { git = "https://github.com/paritytech/polkadot-sdk.git", branch = "stable2603", default-features = false }
+sp-session       = { git = "https://github.com/paritytech/polkadot-sdk.git", branch = "stable2603", default-features = false }
+sp-version       = { git = "https://github.com/paritytech/polkadot-sdk.git", branch = "stable2603", default-features = false }
+sp-storage       = { git = "https://github.com/paritytech/polkadot-sdk.git", branch = "stable2603", default-features = false }
+sp-transaction-pool = { git = "https://github.com/paritytech/polkadot-sdk.git", branch = "stable2603", default-features = false }
+
+# Polkadot SDK — FRAME
+frame-support    = { git = "https://github.com/paritytech/polkadot-sdk.git", branch = "stable2603", default-features = false }
+frame-system     = { git = "https://github.com/paritytech/polkadot-sdk.git", branch = "stable2603", default-features = false }
+frame-executive  = { git = "https://github.com/paritytech/polkadot-sdk.git", branch = "stable2603", default-features = false }
+frame-benchmarking = { git = "https://github.com/paritytech/polkadot-sdk.git", branch = "stable2603", default-features = false }
+frame-system-rpc-runtime-api = { git = "https://github.com/paritytech/polkadot-sdk.git", branch = "stable2603", default-features = false }
+frame-try-runtime = { git = "https://github.com/paritytech/polkadot-sdk.git", branch = "stable2603", default-features = false }
+substrate-frame-rpc-system = { git = "https://github.com/paritytech/polkadot-sdk.git", branch = "stable2603", default-features = false }
+
+# Polkadot SDK — pallets
+pallet-balances   = { git = "https://github.com/paritytech/polkadot-sdk.git", branch = "stable2603", default-features = false }
+pallet-proxy      = { git = "https://github.com/paritytech/polkadot-sdk.git", branch = "stable2603", default-features = false }
+pallet-timestamp  = { git = "https://github.com/paritytech/polkadot-sdk.git", branch = "stable2603", default-features = false }
+pallet-sudo       = { git = "https://github.com/paritytech/polkadot-sdk.git", branch = "stable2603", default-features = false }
+pallet-transaction-payment = { git = "https://github.com/paritytech/polkadot-sdk.git", branch = "stable2603", default-features = false }
+pallet-transaction-payment-rpc-runtime-api = { git = "https://github.com/paritytech/polkadot-sdk.git", branch = "stable2603", default-features = false }
+
+# Build tools
+substrate-wasm-builder = { git = "https://github.com/paritytech/polkadot-sdk.git", branch = "stable2603" }
+
+# Internal crates
+zk-pki-primitives = { path = "primitives", default-features = false }
+zk-pki-tpm        = { path = "tpm",        default-features = false }
+zk-pki-integrity  = { path = "integrity",  default-features = false }
+zk-pki-hip        = { path = "hip",        default-features = false }
+zk-pki-pallet     = { path = "pallet",     default-features = false }
